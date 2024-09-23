@@ -150,7 +150,7 @@ fun Topbar(onClick: () -> Unit, modifier: Modifier = Modifier) {
                     Text(
                         modifier = Modifier
                             .weight(1f)
-                            .offset(x = 10.dp)
+                            .padding(10.dp, 0.dp)
                             .wrapContentSize(Alignment.Center),
                         text = "Senin, 23 September 2024",
                         fontSize = 15.sp
@@ -158,7 +158,7 @@ fun Topbar(onClick: () -> Unit, modifier: Modifier = Modifier) {
                     Text(
                         modifier = Modifier
                             .weight(3f)
-                            .offset(x = 10.dp)
+                            .padding(10.dp, 0.dp)
                             .wrapContentSize(Alignment.Center),
                         text = "Rp. 1.300.000,-",
                         fontSize = 30.sp
@@ -192,113 +192,56 @@ fun Home(onClick: () -> Unit, modifier: Modifier = Modifier, scrollState: Scroll
     Box(modifier = Modifier
         .fillMaxSize()
         .offset(y = 70.dp)
-
-        .verticalScroll(scrollState)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .background(Color.Blue)
-        ) {
-            TextButton(
+        Column {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-                Text("test")
+                    .height(50.dp)
+                    .padding(10.dp, 5.dp)
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxSize(),
+                    text = "Penjualan hari ini",
+                    fontSize = 30.sp
+                )
             }
-            TextButton(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Gray)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
+                    .fillMaxHeight()
+                    .verticalScroll(scrollState)
+                    .padding(0.dp, 0.dp, 0.dp, 70.dp)
+            ) {
+                TextButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Red)
+                        .height(400.dp),
+                    onClick = onClick
+                )
+                {
+                    Text("test")
+                }
+                TextButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Gray)
+                        .height(400.dp),
+                    onClick = onClick
+                )
+                {
 
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-                Text("test")
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Gray)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-                Text("test")
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Gray)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-                Text("test")
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Gray)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Red)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-                Text("test")
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Gray)
-                    .height(120.dp),
-                onClick = onClick
-            )
-            {
-
+                }
+                TextButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Red)
+                        .height(400.dp),
+                    onClick = onClick
+                )
+                {
+                    Text("test")
+                }
+                Spacer(modifier = Modifier.height(70.dp))
             }
         }
     }
