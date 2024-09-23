@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -46,7 +48,8 @@ class MainActivity : ComponentActivity() {
             KasirTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Topbar(onClick = {})
-                    Home(onClick = {})
+                    val scrollState = rememberScrollState()
+                    Home(onClick = {}, scrollState = scrollState)
                     Navbar(onClick = {})
                 }
             }
@@ -185,35 +188,118 @@ fun Topbar(onClick: () -> Unit, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun Home(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    Box(modifier = Modifier.fillMaxSize()) {
+fun Home(onClick: () -> Unit, modifier: Modifier = Modifier, scrollState: ScrollState) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .offset(y = 70.dp)
+
+        .verticalScroll(scrollState)
+    ) {
         Column(
             modifier = Modifier
-                .padding(20.dp)
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-
+                .fillMaxHeight()
+                .background(Color.Blue)
         ) {
-            Text(
+            TextButton(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentSize(Alignment.Center),
-                text = "Daftar Pesanan",
-                fontSize = 20.sp,
-                color = Color.Black
+                    .background(Color.Red)
+                    .height(120.dp),
+                onClick = onClick
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            Button(
-                onClick = { onClick() },
-                shape = CircleShape,
-                modifier = Modifier
-                    .size(80.dp)
-                    .offset(x = 100.dp)
-            ) {
-                Text(text = "Tambah Pesanan")
+            {
+                Text("test")
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Gray)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Red)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+                Text("test")
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Gray)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Red)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+                Text("test")
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Gray)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Red)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+                Text("test")
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Gray)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Red)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+                Text("test")
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Gray)
+                    .height(120.dp),
+                onClick = onClick
+            )
+            {
+
+            }
         }
     }
-
 }
