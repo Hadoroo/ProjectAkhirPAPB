@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Project Akhir PAPB</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
+    <string name="title_activity_register_screen">RegisterScreen</string>
 </resources>

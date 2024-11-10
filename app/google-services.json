@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "416019154807",
+    "project_id": "projectakhirpapb-2b4ba",
+    "storage_bucket": "projectakhirpapb-2b4ba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416019154807:android:0f85f91392871e5a784372",
+        "android_client_info": {
+          "package_name": "com.example.projectakhirpapb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxscfp8xG659WMyWQrRlOvZi1Yy57LC8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
