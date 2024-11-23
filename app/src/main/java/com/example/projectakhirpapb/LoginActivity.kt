@@ -34,9 +34,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-import com.example.projectakhirpapb.screen.LoginScreen
 import com.example.projectakhirpapb.screen.ui.theme.ProjectAkhirPAPBTheme
 import com.google.firebase.auth.FirebaseAuth
 
@@ -49,12 +46,12 @@ class LoginActivity : ComponentActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        setContent{
+        setContent {
             ProjectAkhirPAPBTheme {
-                Surface (
+                Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
-                ){
+                ) {
                     LoginScreen()
 
                     if (showExitDialog) {
@@ -74,10 +71,8 @@ class LoginActivity : ComponentActivity() {
                             }
                         )
                     }
-
                 }
             }
-
         }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -85,16 +80,12 @@ class LoginActivity : ComponentActivity() {
                 showExitDialog = true
             }
         })
-
-
     }
 
     private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
-        ContextCompat.startActivity(intent)
+        startActivity(intent) // Memperbaiki pemanggilan startActivity
         finish()
-
-
     }
 
     @Composable
@@ -140,7 +131,6 @@ class LoginActivity : ComponentActivity() {
 
             Button(
                 onClick = {
-
                     Toast.makeText(context, "Bypassing login for testing...", Toast.LENGTH_SHORT).show()
                     startMainActivity()
                 },
@@ -154,8 +144,4 @@ class LoginActivity : ComponentActivity() {
             }
         }
     }
-
 }
-
-
-

@@ -1,11 +1,20 @@
-package com.example.projectakhirpapb.AuthViewModel
+package com.example.projectakhirpapb.data.viewmodel
 
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.auth.AuthState
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+// Define AuthState as a sealed class
+sealed class AuthState {
+    object Initial : AuthState()
+    object Authenticated : AuthState()
+    object Unauthenticated : AuthState()
+}
 
 class AuthViewModel : ViewModel() {
     private val auth = Firebase.auth
