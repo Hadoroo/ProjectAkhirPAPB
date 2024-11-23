@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-// Define AuthState as a sealed class
 sealed class AuthState {
     object Initial : AuthState()
     object Authenticated : AuthState()
@@ -22,7 +21,7 @@ class AuthViewModel : ViewModel() {
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
     init {
-        // Check if user is already logged in
+
         auth.currentUser?.let {
             _authState.value = AuthState.Authenticated
         } ?: run {
