@@ -19,6 +19,12 @@
             android:label="@string/title_activity_register_screen"
             android:theme="@style/Theme.ProjectAkhirPAPB" />
         <activity
+            android:name=".screen.ProfileScreen"
+            android:exported="true"
+            android:label="@string/title_activity_register_screen"
+            android:theme="@style/Theme.ProjectAkhirPAPB" />
+
+        <activity
             android:name=".LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_login_screen"

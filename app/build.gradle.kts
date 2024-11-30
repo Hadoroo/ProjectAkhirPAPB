@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -77,4 +78,8 @@ dependencies {
 
     implementation("androidx.compose.material:material-icons-extended:1.5.1")
 
+    implementation("com.google.firebase:firebase-auth:23.1.0")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
+
+    implementation("com.google.gms:google-services:4.3.15")
 }
