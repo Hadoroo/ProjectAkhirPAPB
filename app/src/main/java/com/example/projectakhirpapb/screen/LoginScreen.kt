@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.example.projectakhirpapb.navigation.Screen
 import com.google.firebase.auth.FirebaseAuth
+
 @Composable
 fun LoginScreen(auth: FirebaseAuth, navController: NavController) {
     var email by remember { mutableStateOf("") }
@@ -47,7 +48,6 @@ fun LoginScreen(auth: FirebaseAuth, navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Password Field
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -69,8 +69,7 @@ fun LoginScreen(auth: FirebaseAuth, navController: NavController) {
                         auth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    // Navigasi ke HomeScreen dan pop login screen agar tidak terstack
-                                    navController.navigate(Screen.Home.route) {
+                                    navController.navigate(Screen.NotesScreen.route) {
                                         popUpTo(navController.graph.findStartDestination().id) {
                                             inclusive = true
                                         }
@@ -90,7 +89,7 @@ fun LoginScreen(auth: FirebaseAuth, navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             TextButton(onClick = { navController.navigate(Screen.Register.route) }) {
-                Text("Don't have an account? Register here.")
+                Text("Don't have an account? Register here!")
             }
         }
     }

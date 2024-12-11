@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -22,48 +24,59 @@ import androidx.navigation.compose.rememberNavController
 import com.example.projectakhirpapb.navigation.Screen
 import com.example.projectakhirpapb.screen.ProfileScreen
 import com.example.projectakhirpapb.screen.LoginScreen
+import com.example.projectakhirpapb.screen.NotesScreen
 import com.example.projectakhirpapb.screen.RegisterScreen
+import com.example.projectakhirpapb.screen.SettingsScreen
+import com.example.projectakhirpapb.screen.WriteNoteScreen
 import com.example.projectakhirpapb.ui.theme.ProjectAkhirPAPBTheme
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.auth
 
 
 class MainActivity : ComponentActivity() {
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Initialize Firebase App
+        auth = FirebaseAuth.getInstance()
         FirebaseApp.initializeApp(this)
 
         setContent {
             ProjectAkhirPAPBTheme {
                 val navController = rememberNavController()
-                val auth = FirebaseAuth.getInstance()
+                val isUserLoggedIn = remember { mutableStateOf(auth.currentUser != null) }
 
-                if (auth.currentUser == null) {
-                    // Tampilkan tampilan login jika pengguna belum login
-                    LoginScreen(auth = auth, navController = navController)
-                } else {
-                    MainScreen(auth = auth, navController = navController)
+                val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+                    val user = firebaseAuth.currentUser
+                    isUserLoggedIn.value = user != null
+                }
+
+                auth.addAuthStateListener(authStateListener)
+
+                Scaffold(
+                    bottomBar = {
+
+                        if (isUserLoggedIn.value) {
+                            BottomBar(navController = navController)
+                        }
+                    }
+                ) { paddingValues ->
+                    NavigationGraph(
+                        navController = navController,
+                        modifier = Modifier.padding(paddingValues),
+                        auth = auth
+                    )
                 }
             }
         }
     }
-}
 
-@Composable
-fun MainScreen(auth: FirebaseAuth, navController: NavHostController) {
-    Scaffold(
-        bottomBar = {
-            BottomBar(navController)
-        }
-    ) { innerPadding ->
-        NavigationGraph(
-            navController = navController,
-            modifier = Modifier.padding(innerPadding),
-            auth = auth
-        )
+    override fun onStop() {
+        super.onStop()
+
+        auth.removeAuthStateListener { firebaseAuth -> }
     }
 }
 
@@ -73,18 +86,19 @@ fun NavigationGraph(
     modifier: Modifier = Modifier,
     auth: FirebaseAuth
 ) {
-    val startDestination = if (auth.currentUser != null) Screen.Home.route else Screen.Login.route
+    val startDestination = if (auth.currentUser != null) Screen.NotesScreen.route else Screen.Login.route
 
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier
     ) {
+        composable(Screen.NotesScreen.route) {
+            NotesScreen(navController = navController)
+        }
+
         composable(Screen.Login.route) {
             LoginScreen(auth = auth, navController = navController)
-        }
-        composable(Screen.Home.route) {
-            HomeScreen()
         }
         composable(Screen.ProfileScreen.route) {
             ProfileScreen(navController = navController, auth = auth)
@@ -95,11 +109,15 @@ fun NavigationGraph(
         composable(Screen.ToDoScreen.route) {
             ToDoScreen()
         }
+        composable(Screen.SettingsScreen.route) {
+            SettingsScreen(navController = navController, auth = auth)
+        }
+        composable(Screen.WriteNoteScreen.route) {
+            WriteNoteScreen(navController = navController)
+        }
+
     }
 }
-
-
-
 
 @Composable
 fun BottomBar(navController: NavHostController) {
@@ -107,11 +125,11 @@ fun BottomBar(navController: NavHostController) {
 
     NavigationBar {
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Home, contentDescription = "Homepage") },
+            icon = { Icon(Icons.Default.Home, contentDescription = "Notes") },
             label = { Text("Notes") },
-            selected = backStackEntry.value?.destination?.route == Screen.Home.route,
+            selected = backStackEntry.value?.destination?.route == Screen.NotesScreen.route,
             onClick = {
-                navController.navigate(Screen.Home.route) {
+                navController.navigate(Screen.NotesScreen.route) {
                     popUpTo(navController.graph.findStartDestination().id) {
                         saveState = true
                     }
@@ -120,6 +138,7 @@ fun BottomBar(navController: NavHostController) {
                 }
             }
         )
+
         NavigationBarItem(
             icon = { Icon(Icons.Default.List, contentDescription = "To-Do") },
             label = { Text("To-Do") },
@@ -134,9 +153,8 @@ fun BottomBar(navController: NavHostController) {
                 }
             }
         )
-
         NavigationBarItem(
-            icon = { Icon(Icons.Default.List, contentDescription = "Profile") },
+            icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
             label = { Text("Profile") },
             selected = backStackEntry.value?.destination?.route == Screen.ProfileScreen.route,
             onClick = {
@@ -148,20 +166,6 @@ fun BottomBar(navController: NavHostController) {
                     launchSingleTop = true
                 }
             }
-        )
-    }
-}
-
-@Composable
-fun HomeScreen() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Text(
-            text = "Home Screen",
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(16.dp)
         )
     }
 }

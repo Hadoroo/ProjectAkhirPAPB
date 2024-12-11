@@ -12,7 +12,12 @@
           "package_name": "com.example.projectakhirpapb"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "416019154807-22b2rfu6ahocfasjn81n6qfcadktp8dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCxscfp8xG659WMyWQrRlOvZi1Yy57LC8I"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416019154807-22b2rfu6ahocfasjn81n6qfcadktp8dc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

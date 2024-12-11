@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.outlined.CheckBox
 import androidx.compose.material.icons.outlined.CheckBoxOutlineBlank
@@ -20,9 +18,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.projectakhirpapb.data.local.ToDo
-import com.example.projectakhirpapb.data.viewmodel.ToDoViewModel
-import com.example.projectakhirpapb.data.viewmodel.ViewModelFactory
+import com.example.projectakhirpapb.data.todos.ToDo
+import com.example.projectakhirpapb.data.todos.ToDoViewModel
+import com.example.projectakhirpapb.data.todos.ViewModelFactory
 
 @Composable
 fun ToDoScreen() {
@@ -33,12 +31,18 @@ fun ToDoScreen() {
     var showDialog by remember { mutableStateOf(false) }
     var title by remember { mutableStateOf(TextFieldValue("")) }
     var description by remember { mutableStateOf(TextFieldValue("")) }
+    var searchQuery by remember { mutableStateOf("") }
+
+    val filteredTodos = todos.filter {
+        it.title.contains(searchQuery, ignoreCase = true)
+    }
+
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { showDialog = true },
-                modifier = Modifier.padding(bottom = 72.dp)
+                modifier = Modifier.padding(bottom = 20.dp)
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Add To-Do")
             }
@@ -50,20 +54,21 @@ fun ToDoScreen() {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            Text(
-                text = "To - Do List",
-                fontSize = 24.sp,
-                style = MaterialTheme.typography.headlineMedium,
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search To-do") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
+                singleLine = true
             )
 
 
-            if (todos.isEmpty()) {
+            if (filteredTodos.isEmpty()) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
-                        text = "Belum ada To-Do.",
+                        text = "To-do still empty.",
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(16.dp)
                     )
@@ -72,10 +77,10 @@ fun ToDoScreen() {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(bottom = 72.dp),
+                        .padding(bottom = 0.5.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(todos) { todo ->
+                    items(filteredTodos) { todo ->
                         ToDoItem(
                             todo = todo,
                             onDelete = { viewModel.deleteToDo(it) },
@@ -107,6 +112,7 @@ fun ToDoScreen() {
         }
     }
 }
+
 
 @Composable
 fun AddToDoDialog(
@@ -157,7 +163,7 @@ fun ToDoItem(todo: ToDo, onDelete: (ToDo) -> Unit, onToggleCompletion: (ToDo) ->
             .fillMaxWidth()
             .padding(vertical = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (todo.isCompleted) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+            containerColor = if (todo.completed) MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
             else MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(4.dp)
@@ -174,12 +180,12 @@ fun ToDoItem(todo: ToDo, onDelete: (ToDo) -> Unit, onToggleCompletion: (ToDo) ->
                     onClick = { onToggleCompletion(todo) }
                 ) {
                     Icon(
-                        imageVector = if (todo.isCompleted)
+                        imageVector = if (todo.completed)
                             androidx.compose.material.icons.Icons.Outlined.CheckBox
                         else
                             androidx.compose.material.icons.Icons.Outlined.CheckBoxOutlineBlank,
                         contentDescription = "Toggle Completion",
-                        tint = if (todo.isCompleted) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        tint = if (todo.completed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                     )
                 }
                 Spacer(modifier = Modifier.width(8.dp))

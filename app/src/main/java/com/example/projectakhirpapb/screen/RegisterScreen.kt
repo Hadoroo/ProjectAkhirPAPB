@@ -61,7 +61,6 @@ fun RegisterScreen(auth: FirebaseAuth, navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Password Field
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -101,8 +100,7 @@ fun RegisterScreen(auth: FirebaseAuth, navController: NavController) {
                                         }
                                     )?.addOnCompleteListener { updateTask ->
                                         if (updateTask.isSuccessful) {
-                                            // Navigasi ke HomeScreen setelah registrasi berhasil
-                                            navController.navigate(Screen.Home.route) {
+                                            navController.navigate(Screen.NotesScreen.route) {
                                                 popUpTo(navController.graph.findStartDestination().id) {
                                                     inclusive = true
                                                 }

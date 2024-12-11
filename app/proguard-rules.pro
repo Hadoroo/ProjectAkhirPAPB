@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Pastikan konstruktor tanpa argumen tidak dihapus
+-keepclassmembers class com.example.projectakhirpapb.data.todos.ToDo {
+    public <init>();
+}

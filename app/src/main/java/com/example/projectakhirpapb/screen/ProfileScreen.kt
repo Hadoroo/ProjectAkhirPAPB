@@ -58,6 +58,10 @@ fun ProfileScreen(navController: NavHostController, auth: FirebaseAuth) {
                 Text("Username: $userName", style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.height(8.dp))
                 Text("Email: $email", style = MaterialTheme.typography.bodyMedium)
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(onClick = { navController.navigate(Screen.SettingsScreen.route) }) {
+                    Text("Settings")
+                }
             }
         }
     )

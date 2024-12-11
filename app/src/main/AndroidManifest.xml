@@ -13,22 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAkhirPAPB"
         tools:targetApi="31">
-        <activity
-            android:name=".screen.RegisterScreen"
-            android:exported="false"
-            android:label="@string/title_activity_register_screen"
-            android:theme="@style/Theme.ProjectAkhirPAPB" />
-        <activity
-            android:name=".screen.ProfileScreen"
-            android:exported="true"
-            android:label="@string/title_activity_register_screen"
-            android:theme="@style/Theme.ProjectAkhirPAPB" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />  <!-- atau bisa @drawable/ic_notification_icon -->
 
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login_screen"
-            android:theme="@style/Theme.ProjectAkhirPAPB" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:value="#FF0000" />  <!-- Atau warna hex seperti #FF0000 -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

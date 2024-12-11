@@ -14,6 +14,7 @@ firebaseAuth = "23.1.0"
 navigationCompose = "2.8.3"
 roomRuntime = "2.6.1"
 firebaseCrashlyticsBuildtools = "3.0.2"
+firebaseFirestoreKtx = "25.1.1"
 
 
 [libraries]
@@ -37,6 +38,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
